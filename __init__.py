@@ -19,13 +19,13 @@ class Screen:
 		# check all "renderable" columns (col) for possible f(x) value
 		for col in range(self.screen_dims[0]):
 			x = col / self.screen_dims[0] * sc_w + sc_x
-			y = exp(x)
 			
 			try:
+				y = exp(x)
 				# check if this x value has a corresponding f(x) in scope
 				# this is in a try-except because passed "exp" might return y val of type "complex"
 				row = self._screen_pos(y=y)
-			except TypeError:
+			except (TypeError, ValueError):
 				row = None
 			
 			if row is not None:
