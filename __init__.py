@@ -3,7 +3,7 @@ import os
 
 
 class Screen:
-	def __init__(self, scope=(-1.5, -1.5, 16/9 * 3, 3), screen_dims_offset=(0, -2)):
+	def __init__(self, scope=(-1.5, -1.5, 16/9 * 3, 3), screen_dims_offset=(0, -1)):
 		self.scope = scope
 		
 		_screen_dims = list(reversed([int(i) for i in os.popen('stty size', 'r').read().split()]))
@@ -72,13 +72,13 @@ class Screen:
 			row = self.screen_dims[1] - 1 - self._screen_pos(y=0)
 			for col in range(self.screen_dims[0]):
 				ink_before = self.screen[row][col]
-				self.screen[row][col] = color(ink_before, back="blue")
+				self.screen[row][col] = color(ink_before, back="#d75880")
 		# y
 		if self._in_scope(x=0):
 			col = self._screen_pos(x=0)
 			for row in range(self.screen_dims[1]):
 				ink_before = self.screen[row][col]
-				self.screen[row][col] = color(ink_before, back="red")
+				self.screen[row][col] = color(ink_before, back="#d75880")
 		
 	def _paint_overlay(self):
 		sc_x, sc_y, sc_w, sc_h = self.scope
@@ -97,8 +97,7 @@ class Screen:
 			for i, c in enumerate(string):
 				if col + i < self.screen_dims[0]:
 					self.screen[row][col + i] = color(c, "red", "white")
-		
-	
+
 	def render(self, paint_all=True):
 		if paint_all:
 			self._paint_axes()
